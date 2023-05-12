@@ -1,5 +1,6 @@
 import AppLayout from './AppLayout';
-import Logo from './Logo';
 import Button from './Button';
+import Logo from './Logo';
+import TokenComponent from './Token';
 
-export { AppLayout, Logo, Button };
+export { AppLayout, Logo, Button, TokenComponent };
