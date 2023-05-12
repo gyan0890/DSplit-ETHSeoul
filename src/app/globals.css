@@ -2,26 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  color: #000000;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  html {
+    color-scheme: dark;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+html {
+  background-size: cover;
+  height: 100%;
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+
+  /* Background image is fixed in the viewport so that it doesn't move when
+the content's height is greater than the image's height */
+  background-attachment: fixed;
+
+  background: conic-gradient(
+    from 61.76deg at 6.71% -16.99%,
+    #ffffff 0deg,
+    #ffffff 61.87deg,
+    #afecc7 196.88deg,
+    #25c264 211.84deg,
+    #dc9f9f 211.88deg,
+    #e5acac 219.38deg,
+    #ffd3d3 241.88deg,
+    #eabfda 273.75deg,
+    #7a50ff 348.75deg,
+    #ffffff 360deg
+  );
 }
