@@ -1,15 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNetwork } from 'wagmi';
 
-import {
-  AddNote,
-  Address,
-  Amount,
-  Chain,
-  Done,
-  SelectType,
-  Token
-} from '@/components/steps';
+import { AddNote, Address, Amount, Chain, Done, SelectType, Token } from '@/components/steps';
 import Confirmation from '@/components/steps/Confirmation';
 import { Token as TokenType, Transaction } from '@/models/transaction';
 
@@ -25,6 +18,7 @@ const DONE = 7;
 const IndexPage = () => {
   const [step, setStep] = useState(SELECT_TYPE_STEP);
   const [transaction, setTransaction] = useState<Transaction>({} as Transaction);
+  const { chain } = useNetwork();
 
   const onSelectType = (type: Transaction['type']) => {
     setTransaction({ ...transaction, ...{ type } });
@@ -61,6 +55,13 @@ const IndexPage = () => {
     setStep(SELECT_TYPE_STEP);
   };
 
+  useEffect(() => {
+    if (chain && step === CONFIRM_STEP && chain.id !== transaction.chainId) {
+      setStep(CHAIN_STEP);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chain]);
+
   switch (step) {
     case SELECT_TYPE_STEP:
       return (
@@ -72,7 +73,7 @@ const IndexPage = () => {
     case ADDRESS_STEP:
       return <Address type={transaction.type} onSetDestination={onSetDestination} />;
     case CHAIN_STEP:
-      return <Chain onSelectChain={onSelectChain} />;
+      return <Chain type={transaction.type} onSelectChain={onSelectChain} />;
     case TOKEN_STEP:
       return <Token chainId={transaction.chainId} onSelectToken={onSelectToken} />;
     case AMOUNT_STEP:

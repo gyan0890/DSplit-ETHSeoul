@@ -5,11 +5,10 @@ import { useAccount, useNetwork, useSwitchNetwork, useWaitForTransaction } from 
 
 import { Button, TokenComponent, TransactionLink } from '@/components';
 import {
-  usePrepareTransferTransaction,
-  useTransactionFeedback,
-  useTransferTransaction
+	usePrepareTransferTransaction, useRequestTransaction, useTransactionFeedback,
+	useTransferTransaction
 } from '@/hooks/';
-import { enabledChains } from '@/models/chains';
+import { enabledChains, requestContracts } from '@/models/chains';
 import { Transaction } from '@/models/transaction';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 
@@ -26,6 +25,7 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
   const needsToSwitchNetwork = chain?.id !== chainId;
   const { switchNetwork } = useSwitchNetwork();
   const destinationChain = enabledChains.find((c) => c.id === chainId);
+  const request = type === 'request';
   const disconnected = !address || !chain;
 
   const { config, error } = usePrepareTransferTransaction({
@@ -46,12 +46,24 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
     hash: data?.hash
   });
 
+  const {
+    data: requestData,
+    isSuccess: requestIsSuccess,
+    isError: requestIsError,
+    error: requestError,
+    request: requestToken
+  } = useRequestTransaction({
+    disconnected,
+    transaction,
+    address: requestContracts[chain!.id]
+  });
+
   useTransactionFeedback({
-    hash: data?.hash,
-    isSuccess,
-    isError,
-    error: writeError,
-    Link: <TransactionLink hash={data?.hash} />,
+    hash: (request ? requestData : data)?.hash,
+    isSuccess: request ? requestIsSuccess : isSuccess,
+    isError: request ? requestIsError : isError,
+    error: request ? requestError : writeError,
+    Link: <TransactionLink hash={(request ? requestData : data)?.hash} />,
     onNotificationShow: onConfirm
   });
 
@@ -73,7 +85,7 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
         progress: undefined
       });
     } else {
-      transfer?.();
+      request ? requestToken?.() : transfer?.();
     }
   };
 

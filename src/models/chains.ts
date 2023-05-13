@@ -99,3 +99,7 @@ export const tokens: { [key: number]: Token[] } = {
     }
   ]
 };
+
+export const requestContracts: { [key: number]: `0x${string}` } = {
+  [polygonMumbai.id]: '0x88E314a7696CB67f306b7814020F710Ba047027a'
+};

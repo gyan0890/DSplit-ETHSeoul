@@ -2,20 +2,27 @@ import Image from 'next/image';
 import React from 'react';
 import { Chain } from 'wagmi';
 
-import { chainIcons, enabledChains } from '@/models/chains';
+import { chainIcons, enabledChains, requestContracts } from '@/models/chains';
+import { Transaction } from '@/models/transaction';
 import { chunk } from '@/utils';
 
 interface ChainProps {
+  type: Transaction['type'];
   onSelectChain: (id: number) => void;
 }
 
-const Chain = ({ onSelectChain }: ChainProps) => {
+const Chain = ({ type, onSelectChain }: ChainProps) => {
+  const requestChainIds = Object.keys(requestContracts); // chains with the requests contract deployed
+  const chains =
+    type === 'request'
+      ? enabledChains.filter((c) => requestChainIds.includes(String(c.id)))
+      : enabledChains;
   return (
     <>
       <h1 className="text-2xl text-center">Choose chain</h1>
 
       <div className="mt-8">
-        {chunk(enabledChains, 2).map((chains, index) => {
+        {chunk(chains, 2).map((chains, index) => {
           return (
             <div key={index} className="flex flex-row space-x-2 mb-4">
               {chains.map((chain: Chain) => {
