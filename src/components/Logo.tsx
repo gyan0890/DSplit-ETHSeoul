@@ -5,7 +5,7 @@ import React from 'react';
 import logo from '../../public/logo.svg';
 
 const Logo = () => (
-  <div className="mt-8 flex w-full justify-center items-center">
+  <div className="flex w-full justify-center items-center">
     <Link href="/">
       <Image
         src={logo}

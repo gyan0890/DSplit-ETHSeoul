@@ -1,7 +1,15 @@
 'use client';
 import React, { useState } from 'react';
 
-import { AddNote, Address, Amount, Chain, SelectType, Token } from '@/components/steps';
+import {
+  AddNote,
+  Address,
+  Amount,
+  Chain,
+  Done,
+  SelectType,
+  Token
+} from '@/components/steps';
 import Confirmation from '@/components/steps/Confirmation';
 import { Token as TokenType, Transaction } from '@/models/transaction';
 
@@ -48,6 +56,11 @@ const IndexPage = () => {
     setStep(CONFIRM_STEP);
   };
 
+  const reset = () => {
+    setTransaction({} as Transaction);
+    setStep(SELECT_TYPE_STEP);
+  };
+
   switch (step) {
     case SELECT_TYPE_STEP:
       return (
@@ -74,6 +87,8 @@ const IndexPage = () => {
       return <AddNote onSetNote={onSetNote} />;
     case CONFIRM_STEP:
       return <Confirmation transaction={transaction} onConfirm={() => setStep(DONE)} />;
+    case DONE:
+      return <Done onBackHome={reset} type={transaction.type} />;
   }
 };
 

@@ -1,7 +1,17 @@
 import React from 'react';
+import { toast } from 'react-toastify';
+import { zeroAddress } from 'viem';
+import { useAccount, useNetwork, useSwitchNetwork, useWaitForTransaction } from 'wagmi';
 
-import { Button, TokenComponent } from '@/components';
+import { Button, TokenComponent, TransactionLink } from '@/components';
+import {
+  usePrepareTransferTransaction,
+  useTransactionFeedback,
+  useTransferTransaction
+} from '@/hooks/';
+import { enabledChains } from '@/models/chains';
 import { Transaction } from '@/models/transaction';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 interface ConfirmationProps {
   transaction: Transaction;
@@ -9,9 +19,63 @@ interface ConfirmationProps {
 }
 
 const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
-  const { type, to, token, amount, note } = transaction;
+  const { type, to, token, amount, note, chainId } = transaction;
+  const { address } = useAccount();
+  const { openConnectModal } = useConnectModal();
+  const { chain } = useNetwork();
+  const needsToSwitchNetwork = chain?.id !== chainId;
+  const { switchNetwork } = useSwitchNetwork();
+  const destinationChain = enabledChains.find((c) => c.id === chainId);
+  const disconnected = !address || !chain;
 
-  const confirm = () => {};
+  const { config, error } = usePrepareTransferTransaction({
+    token,
+    disconnected,
+    amount,
+    address: to.address
+  });
+
+  const {
+    data,
+    isError,
+    error: writeError,
+    transfer
+  } = useTransferTransaction(config, token.address === zeroAddress);
+
+  const { isSuccess } = useWaitForTransaction({
+    hash: data?.hash
+  });
+
+  useTransactionFeedback({
+    hash: data?.hash,
+    isSuccess,
+    isError,
+    error: writeError,
+    Link: <TransactionLink hash={data?.hash} />,
+    onNotificationShow: onConfirm
+  });
+
+  const confirm = () => {
+    if (disconnected) {
+      openConnectModal?.();
+    } else if (needsToSwitchNetwork) {
+      switchNetwork?.(chainId);
+    } else if (error) {
+      // @ts-expect-error
+      toast.error(error.shortMessage, {
+        theme: 'dark',
+        position: 'top-right',
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined
+      });
+    } else {
+      transfer?.();
+    }
+  };
 
   return (
     <div className="flex flex-col w-full justify-center items-center">
@@ -42,7 +106,16 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
       )}
 
       <div className="mt-4 text-center">
-        <Button label="confirm" onClick={onConfirm} />
+        <Button
+          label={
+            disconnected
+              ? 'connect wallet'
+              : needsToSwitchNetwork
+              ? `switch to ${destinationChain?.name}`
+              : 'confirm'
+          }
+          onClick={confirm}
+        />
       </div>
     </div>
   );

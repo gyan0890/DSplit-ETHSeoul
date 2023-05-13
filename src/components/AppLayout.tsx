@@ -1,16 +1,21 @@
 'use client';
 import '@rainbow-me/rainbowkit/styles.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import { Baskervville } from 'next/font/google';
-import Link from 'next/link';
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
 import { Logo } from '@/components';
 import { enabledChains } from '@/models/chains';
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import {
+  ConnectButton,
+  getDefaultWallets,
+  RainbowKitProvider
+} from '@rainbow-me/rainbowkit';
 
 const baskervville = Baskervville({ subsets: ['latin'], weight: ['400'] });
 
@@ -35,9 +40,21 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
         <div className="flex flex-col w-full justify-center items-center">
-          <Logo />
+          <div className="mt-8">
+            <Logo />
+            <div className="mt-2">
+              <ConnectButton
+                showBalance={false}
+                accountStatus={{
+                  smallScreen: 'avatar',
+                  largeScreen: 'full'
+                }}
+              />
+            </div>
+          </div>
           <div className={`${baskervville.className} mt-16`}>{children}</div>
         </div>
+        <ToastContainer />
         <footer />
       </RainbowKitProvider>
     </WagmiConfig>

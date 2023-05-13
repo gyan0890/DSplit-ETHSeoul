@@ -36,7 +36,7 @@ const AmountStep = ({ onSetAmount, type, token }: AmountStepProps) => {
           <NumericFormat
             value={amount}
             onValueChange={onValueChange}
-            className="mt-4 w-64 h-14 bg-white border-2 border-black rounded-md p-2 block w-full p-4 pl-10 text-center"
+            className="mt-4 w-64 h-14 bg-white border-2 border-black rounded-md p-2 block w-full p-4 pl-10"
             allowedDecimalSeparators={[',', '.']}
             decimalScale={token.decimals}
             inputMode="decimal"

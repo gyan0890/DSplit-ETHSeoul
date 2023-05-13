@@ -1,11 +1,17 @@
-import { mainnet, optimism, polygon } from 'wagmi/chains';
+import { zeroAddress } from 'viem';
+import { Chain, mainnet, optimism, polygon, polygonMumbai } from 'wagmi/chains';
 
 import { Token } from './transaction';
 
-export const enabledChains = [polygon, optimism, mainnet];
+const production = process.env.NODE_ENV === 'production';
+
+export const enabledChains: Chain[] = production
+  ? [polygon, optimism, mainnet]
+  : [polygonMumbai, optimism, mainnet];
 
 // uses coinmarketcap id
 export const chainIcons: { [key: number]: string } = {
+  [polygonMumbai.id]: 'https://cryptologos.cc/logos/thumbs/polygon.png',
   [polygon.id]: 'https://cryptologos.cc/logos/thumbs/polygon.png',
   [mainnet.id]: 'https://cryptologos.cc/logos/thumbs/ethereum.png',
   [optimism.id]: 'https://cryptologos.cc/logos/thumbs/optimism-ethereum.png'
@@ -70,6 +76,26 @@ export const tokens: { [key: number]: Token[] } = {
       chainId: optimism.id,
       coingeckoId: 'tether',
       imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png'
+    }
+  ],
+  [polygonMumbai.id]: [
+    {
+      symbol: 'GFARMDAI',
+      name: 'GFARMDAI',
+      address: '0x04B2A6E51272c82932ecaB31A5Ab5aC32AE168C3',
+      decimals: 18,
+      chainId: polygonMumbai.id,
+      coingeckoId: 'dai',
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/multi-collateral-dai.png'
+    },
+    {
+      symbol: 'MATIC',
+      name: 'MATIC',
+      address: zeroAddress,
+      decimals: 18,
+      chainId: polygonMumbai.id,
+      coingeckoId: 'matic-network',
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/polygon.png'
     }
   ]
 };
