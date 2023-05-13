@@ -38,6 +38,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <Logo />
           <div className={`${baskervville.className} mt-16`}>{children}</div>
         </div>
+        <footer />
       </RainbowKitProvider>
     </WagmiConfig>
   );

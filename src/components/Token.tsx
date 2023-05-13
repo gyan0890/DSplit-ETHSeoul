@@ -11,7 +11,9 @@ const Token = ({ token, onClick }: TokenProps) => {
   return (
     <div
       key={token.address}
-      className="border-2 border-black bg-white rounded-lg p-2 cursor-pointer"
+      className={`border-2 border-black bg-white rounded-lg p-2 ${
+        onClick ? 'cursor-pointer' : ''
+      } `}
       onClick={onClick}
     >
       <Image
