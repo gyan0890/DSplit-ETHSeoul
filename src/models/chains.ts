@@ -1,11 +1,16 @@
 import { constants } from 'ethers';
-import { Chain, optimism, polygon, polygonMumbai } from 'wagmi/chains';
+import {
+	Chain, optimism, polygon, polygonMumbai, polygonZkEvm, polygonZkEvmTestnet
+} from 'wagmi/chains';
 
 import { Token } from './transaction';
 
-const production = process.env.NODE_ENV === 'production';
-
-export const enabledChains: Chain[] = [polygon, optimism];
+export const enabledChains: Chain[] = [
+  polygon,
+  optimism,
+  polygonZkEvm,
+  polygonZkEvmTestnet
+];
 
 // uses coinmarketcap id
 export const chainIcons: { [key: number]: string } = {
@@ -13,7 +18,9 @@ export const chainIcons: { [key: number]: string } = {
   [polygon.id]: 'https://cryptologos.cc/logos/thumbs/polygon.png',
   // [scrollTestnet.id]:
   //   'https://scroll.io/static/media/logo_with_text.7c6cafcac81093d6f83b.png',
-  [optimism.id]: 'https://cryptologos.cc/logos/thumbs/optimism-ethereum.png'
+  [optimism.id]: 'https://cryptologos.cc/logos/thumbs/optimism-ethereum.png',
+  [polygonZkEvm.id]: 'https://cryptologos.cc/logos/thumbs/polygon.png',
+  [polygonZkEvmTestnet.id]: 'https://cryptologos.cc/logos/thumbs/polygon.png'
 };
 
 export const tokens: { [key: number]: Token[] } = {
@@ -112,6 +119,18 @@ export const tokens: { [key: number]: Token[] } = {
       imageUrl: 'https://cryptologos.cc/logos/thumbs/polygon.png',
       gasless: false
     }
+  ],
+  [polygonZkEvm.id]: [
+    {
+      symbol: 'USDC',
+      name: 'USDC',
+      address: '0xA8CE8aee21bC2A48a5EF670afCc9274C7bbbC035',
+      decimals: 6,
+      chainId: polygonZkEvm.id,
+      coingeckoId: 'usd-coin',
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/usd-coin.png',
+      gasless: false
+    }
   ]
 };
 
@@ -119,7 +138,8 @@ export const requestEnabledChains = [polygon];
 
 export const requestContracts: { [key: number]: `0x${string}` } = {
   [polygonMumbai.id]: '0x14F2e404152668C9B4e7Bcf54a634030994EB425',
-  [polygon.id]: '0x943920E1891Fcc6985EdF03bBdAb21b943768b82'
+  [polygon.id]: '0x943920E1891Fcc6985EdF03bBdAb21b943768b82',
+  [polygonZkEvmTestnet.id]: '0x0aA10aCF1964c71EC0c573C6aF5Ef44F2aFB1633'
 };
 
 export const networkApiKeys: { [key: number]: string } = {

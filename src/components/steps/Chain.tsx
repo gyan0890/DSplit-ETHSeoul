@@ -29,7 +29,7 @@ const Chain = ({ type, onSelectChain }: ChainProps) => {
                 return (
                   <div
                     key={chain.id}
-                    className="border-2 border-black bg-white rounded-lg p-2 cursor-pointer"
+                    className="flex flex-col border-2 border-black bg-white rounded-lg p-2 cursor-pointer items-center w-1/2"
                     onClick={() => onSelectChain(chain.id)}
                   >
                     <Image
@@ -40,6 +40,7 @@ const Chain = ({ type, onSelectChain }: ChainProps) => {
                       className="h-16 w-16"
                       unoptimized
                     />
+                    <span className="text-center">{chain.name}</span>
                   </div>
                 );
               })}
