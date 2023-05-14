@@ -1,9 +1,11 @@
 'use client';
 import { formatUnits } from 'ethers/lib/utils';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components';
+import { Done } from '@/components/steps';
 import Confirmation from '@/components/steps/Confirmation';
 import { useRequests } from '@/hooks';
 import { tokens } from '@/models/chains';
@@ -61,10 +63,15 @@ const RequestPage = () => {
   const { requests } = useRequests();
   const [done, setDone] = useState(false);
   const [request, setRequest] = useState<[Request, Token, User, number]>();
+  const router = useRouter();
 
   const selectRequest = (req: Request, t: Token, user: User, chainId: number) => {
     setRequest([req, t, user, chainId]);
   };
+
+  if (done) {
+    return <Done onBackHome={() => router.push('/')} type="send" />;
+  }
 
   if (request) {
     const [userRequest, token, to, chainId] = request;

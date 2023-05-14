@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
-import { polygonMumbai } from 'wagmi/chains';
 
 import { requestContracts, requestEnabledChains } from '@/models/chains';
 import { Requests } from '@/models/transaction';
@@ -18,14 +17,15 @@ const useRequests = () => {
 
       requestEnabledChains.map(async (chain) => {
         const data = await readContract({
-          address: requestContracts[polygonMumbai.id],
+          address: requestContracts[chain.id],
           abi: frenmoRequestsAbi,
           functionName: 'myRequests',
-          chainId: polygonMumbai.id,
+          chainId: chain.id,
           overrides: {
             from: address
           }
         });
+
         // @ts-expect-error
         setRequests({ ...requests, ...{ [chain.id]: data as Request[] } });
       });
