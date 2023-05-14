@@ -139,7 +139,9 @@ export const requestEnabledChains = [polygon];
 export const requestContracts: { [key: number]: `0x${string}` } = {
   [polygonMumbai.id]: '0x14F2e404152668C9B4e7Bcf54a634030994EB425',
   [polygon.id]: '0x943920E1891Fcc6985EdF03bBdAb21b943768b82',
-  [polygonZkEvmTestnet.id]: '0x0aA10aCF1964c71EC0c573C6aF5Ef44F2aFB1633'
+  [polygonZkEvm.id]: '0x0aa10acf1964c71ec0c573c6af5ef44f2afb1633',
+  [polygonZkEvmTestnet.id]: '0x0aA10aCF1964c71EC0c573C6aF5Ef44F2aFB1633',
+  [optimism.id]: '0x0aA10aCF1964c71EC0c573C6aF5Ef44F2aFB1633'
 };
 
 export const networkApiKeys: { [key: number]: string } = {
