@@ -17,6 +17,7 @@ const usePrepareTransferTransaction = ({
   disconnected
 }: UsePrepareTransferTransactionProps) => {
   const nativeToken = token.address === constants.AddressZero;
+
   const { config, error } = usePrepareContractWrite({
     address: token.address,
     abi: erc20ABI,

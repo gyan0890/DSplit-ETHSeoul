@@ -6,7 +6,7 @@ import { requestContracts, requestEnabledChains } from '@/models/chains';
 import { Requests } from '@/models/transaction';
 import { readContract } from '@wagmi/core';
 
-import abi from '../../abis/FrenmoRequests.json';
+import { frenmoRequestsAbi } from '../../abis';
 
 const useRequests = () => {
   const [requests, setRequests] = useState<Requests>({});
@@ -19,7 +19,7 @@ const useRequests = () => {
       requestEnabledChains.map(async (chain) => {
         const data = await readContract({
           address: requestContracts[polygonMumbai.id],
-          abi,
+          abi: frenmoRequestsAbi,
           functionName: 'myRequests',
           chainId: polygonMumbai.id,
           overrides: {

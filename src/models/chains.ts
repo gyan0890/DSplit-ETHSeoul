@@ -5,9 +5,7 @@ import { Token } from './transaction';
 
 const production = process.env.NODE_ENV === 'production';
 
-export const enabledChains: Chain[] = production
-  ? [polygon, optimism]
-  : [polygonMumbai, optimism];
+export const enabledChains: Chain[] = [polygon, optimism];
 
 // uses coinmarketcap id
 export const chainIcons: { [key: number]: string } = {
@@ -107,7 +105,7 @@ export const tokens: { [key: number]: Token[] } = {
   ]
 };
 
-export const requestEnabledChains = production ? [polygon] : [polygonMumbai, polygon];
+export const requestEnabledChains = [polygon];
 
 export const requestContracts: { [key: number]: `0x${string}` } = {
   [polygonMumbai.id]: '0x14F2e404152668C9B4e7Bcf54a634030994EB425',

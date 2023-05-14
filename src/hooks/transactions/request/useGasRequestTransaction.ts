@@ -3,19 +3,12 @@ import { parseUnits } from 'ethers/lib/utils';
 import { useState } from 'react';
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
 
-import { Transaction } from '@/models/transaction';
+import { frenmoRequestsAbi } from '../../../../abis';
+import { UseRequestTransaction } from './types';
 
-import abi from '../../abis/FrenmoRequests.json';
-
-interface UseRequestTransaction {
-  disconnected: boolean;
-  address: `0x${string}`;
-  transaction: Transaction;
-}
-
-const useRequestTransaction = ({
+const useGasRequestTransaction = ({
   disconnected,
-  address,
+  contract,
   transaction
 }: UseRequestTransaction) => {
   const [id] = useState(new Date().getTime().toString());
@@ -23,8 +16,8 @@ const useRequestTransaction = ({
   const { type, to, token, amount, note } = transaction;
 
   const { config, isError, error } = usePrepareContractWrite({
-    address,
-    abi,
+    address: contract,
+    abi: frenmoRequestsAbi,
     functionName: 'request',
     args: [
       requestId,
@@ -51,4 +44,4 @@ const useRequestTransaction = ({
   };
 };
 
-export default useRequestTransaction;
+export default useGasRequestTransaction;

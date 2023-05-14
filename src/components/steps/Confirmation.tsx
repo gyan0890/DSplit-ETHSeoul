@@ -56,7 +56,7 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
   } = useRequestTransaction({
     disconnected,
     transaction,
-    address: requestContracts[chain?.id || polygon.id]
+    contract: requestContracts[chain?.id || polygon.id]
   });
 
   useTransactionFeedback({
@@ -75,8 +75,7 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
     } else if (needsToSwitchNetwork) {
       switchNetwork?.(chainId);
     } else if (error) {
-      // @ts-expect-error
-      toast.error(error.shortMessage, {
+      toast.error(error.shortMessage || error.message, {
         theme: 'dark',
         position: 'top-right',
         autoClose: 10000,
