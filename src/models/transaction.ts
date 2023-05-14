@@ -11,6 +11,7 @@ export interface Token {
   decimals: number;
   imageUrl: string;
   coingeckoId: string;
+  gasless: boolean;
 }
 
 export interface Transaction {

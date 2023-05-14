@@ -27,7 +27,8 @@ export const tokens: { [key: number]: Token[] } = {
       decimals: 6,
       chainId: polygon.id,
       coingeckoId: 'usd-coin',
-      imageUrl: 'https://cryptologos.cc/logos/thumbs/usd-coin.png'
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/usd-coin.png',
+      gasless: true
     },
     {
       symbol: 'USDT',
@@ -36,7 +37,8 @@ export const tokens: { [key: number]: Token[] } = {
       decimals: 6,
       chainId: polygon.id,
       coingeckoId: 'tether',
-      imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png'
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png',
+      gasless: true
     }
   ],
   // [scrollTestnet.id]: [
@@ -67,7 +69,8 @@ export const tokens: { [key: number]: Token[] } = {
       decimals: 6,
       chainId: optimism.id,
       coingeckoId: 'usd-coin',
-      imageUrl: 'https://cryptologos.cc/logos/thumbs/usd-coin.png'
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/usd-coin.png',
+      gasless: false
     },
     {
       symbol: 'USDT',
@@ -76,7 +79,8 @@ export const tokens: { [key: number]: Token[] } = {
       decimals: 6,
       chainId: optimism.id,
       coingeckoId: 'tether',
-      imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png'
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png',
+      gasless: false
     }
   ],
   [polygonMumbai.id]: [
@@ -87,7 +91,8 @@ export const tokens: { [key: number]: Token[] } = {
       decimals: 18,
       chainId: polygonMumbai.id,
       coingeckoId: 'dai',
-      imageUrl: 'https://cryptologos.cc/logos/thumbs/multi-collateral-dai.png'
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/multi-collateral-dai.png',
+      gasless: false
     },
     {
       symbol: 'MATIC',
@@ -96,13 +101,15 @@ export const tokens: { [key: number]: Token[] } = {
       decimals: 18,
       chainId: polygonMumbai.id,
       coingeckoId: 'matic-network',
-      imageUrl: 'https://cryptologos.cc/logos/thumbs/polygon.png'
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/polygon.png',
+      gasless: false
     }
   ]
 };
 
-export const requestEnabledChains = [polygonMumbai];
+export const requestEnabledChains = production ? [polygon] : [polygonMumbai, polygon];
 
 export const requestContracts: { [key: number]: `0x${string}` } = {
-  [polygonMumbai.id]: '0x520D6ab8DFF9560F05d2E4E9e22aA98f9356883a'
+  [polygonMumbai.id]: '0x14F2e404152668C9B4e7Bcf54a634030994EB425',
+  [polygon.id]: '0x943920E1891Fcc6985EdF03bBdAb21b943768b82'
 };

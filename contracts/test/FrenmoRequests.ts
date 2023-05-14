@@ -38,7 +38,7 @@ describe('FrenmoRequests', function () {
   // and reset Hardhat Network to that snapshot in every test.
   async function deploy() {
     const FrenmoRequests = await ethers.getContractFactory('FrenmoRequests');
-    const contract = await FrenmoRequests.deploy();
+    const contract = await FrenmoRequests.deploy(zeroAddress);
     const [user] = await ethers.getSigners();
 
     return { contract, user };

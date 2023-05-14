@@ -57,6 +57,6 @@ footer {
   height: 400px;
   position: absolute;
   bottom: 0;
-  background-image: url('../../public/footer-banner.png');
+  background-image: url('../../public/footer-banner.svg');
   background-size: 100%;
 }
