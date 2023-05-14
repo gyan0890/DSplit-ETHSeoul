@@ -11,7 +11,7 @@ interface AddressStepProps {
 }
 
 const AddressStep = ({ onSetDestination, type }: AddressStepProps) => {
-  const [search, setSearch] = useState('handle.test');
+  const [search, setSearch] = useState('');
 
   const searchAddress = async () => {
     if (!search) return;

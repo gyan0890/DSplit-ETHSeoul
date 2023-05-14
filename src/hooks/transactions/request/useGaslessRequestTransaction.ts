@@ -73,7 +73,7 @@ const useGaslessRequestTransaction = ({
         to: contract,
         from: address,
         signatureType: 'EIP712_SIGN',
-        gasLimit: 200000
+        gasLimit: 300000
       };
       // @ts-ignore
       await provider.send('eth_sendTransaction', [txParams]);

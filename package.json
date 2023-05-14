@@ -30,9 +30,11 @@
     "tailwindcss": "3.3.2",
     "tls": "^0.0.1",
     "typescript": "5.0.4",
+    "utf8": "^3.0.0",
     "wagmi": "^0.12.12"
   },
   "devDependencies": {
+    "@types/utf8": "^3.0.1",
     "encoding": "^0.1.13"
   }
 }

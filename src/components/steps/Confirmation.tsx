@@ -1,14 +1,10 @@
-import { constants } from 'ethers';
 import React from 'react';
 import { toast } from 'react-toastify';
 import { useAccount, useNetwork, useSwitchNetwork, useWaitForTransaction } from 'wagmi';
 import { polygon } from 'wagmi/chains';
 
 import { Button, TokenComponent, TransactionLink } from '@/components';
-import {
-	usePrepareTransferTransaction, useRequestTransaction, useTransactionFeedback,
-	useTransferTransaction
-} from '@/hooks/';
+import { useRequestTransaction, useTransactionFeedback, useTransferTransaction } from '@/hooks/';
 import { enabledChains, requestContracts } from '@/models/chains';
 import { Transaction } from '@/models/transaction';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
@@ -29,19 +25,17 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
   const request = type === 'request';
   const disconnected = !address || !chain;
 
-  const { config, error: sendPrepareError } = usePrepareTransferTransaction({
-    token,
-    disconnected,
-    amount,
-    address: to.address
-  });
-
   const {
     data,
     isError: sendIsError,
     error: sendError,
     transfer
-  } = useTransferTransaction(config, token.address === constants.AddressZero);
+  } = useTransferTransaction({
+    address: to.address,
+    amount,
+    disconnected,
+    token
+  });
 
   const { isSuccess } = useWaitForTransaction({
     hash: data?.hash
@@ -69,7 +63,7 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
   });
 
   const confirm = () => {
-    const error = request ? requestError : sendPrepareError;
+    const error = request ? requestError : sendError;
     if (disconnected) {
       openConnectModal?.();
     } else if (needsToSwitchNetwork) {

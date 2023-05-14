@@ -37,28 +37,28 @@ export const tokens: { [key: number]: Token[] } = {
       coingeckoId: 'tether',
       imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png',
       gasless: true
+    },
+    {
+      symbol: 'ApeCoin',
+      name: 'APE',
+      address: '0xB7b31a6BC18e48888545CE79e83E06003bE70930',
+      decimals: 18,
+      chainId: polygon.id,
+      coingeckoId: 'apecoin',
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/apecoin-ape.png',
+      gasless: true
+    },
+    {
+      symbol: polygon.nativeCurrency.symbol,
+      name: polygon.nativeCurrency.name,
+      address: constants.AddressZero,
+      decimals: polygon.nativeCurrency.decimals,
+      chainId: polygon.id,
+      coingeckoId: 'matic-network',
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/polygon.png',
+      gasless: false
     }
   ],
-  // [scrollTestnet.id]: [
-  //   {
-  //     symbol: 'USDC',
-  //     name: 'USDC',
-  //     address: '0xa0d71b9877f44c744546d649147e3f1e70a93760',
-  //     decimals: 18,
-  //     chainId: scrollTestnet.id,
-  //     coingeckoId: 'usd-coin',
-  //     imageUrl: 'https://cryptologos.cc/logos/thumbs/usd-coin.png'
-  //   },
-  //   {
-  //     symbol: scrollTestnet.nativeCurrency.symbol,
-  //     name: scrollTestnet.nativeCurrency.name,
-  //     address: constants.AddressZero,
-  //     decimals: scrollTestnet.nativeCurrency.decimals,
-  //     chainId: mainnet.id,
-  //     coingeckoId: 'ethereum',
-  //     imageUrl: 'https://cryptologos.cc/logos/thumbs/ethereum.png'
-  //   }
-  // ],
   [optimism.id]: [
     {
       symbol: 'USDC',
@@ -78,6 +78,16 @@ export const tokens: { [key: number]: Token[] } = {
       chainId: optimism.id,
       coingeckoId: 'tether',
       imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png',
+      gasless: false
+    },
+    {
+      symbol: optimism.nativeCurrency.symbol,
+      name: optimism.nativeCurrency.name,
+      address: constants.AddressZero,
+      decimals: optimism.nativeCurrency.decimals,
+      chainId: optimism.id,
+      coingeckoId: 'matic-network',
+      imageUrl: 'https://cryptologos.cc/logos/thumbs/optimism-ethereum.png',
       gasless: false
     }
   ],
