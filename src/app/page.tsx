@@ -1,4 +1,5 @@
 'use client';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useNetwork } from 'wagmi';
 
@@ -16,8 +17,14 @@ const CONFIRM_STEP = 6;
 const DONE = 7;
 
 const IndexPage = () => {
-  const [step, setStep] = useState(SELECT_TYPE_STEP);
-  const [transaction, setTransaction] = useState<Transaction>({} as Transaction);
+  const searchParams = useSearchParams();
+  const selectedType = searchParams.get('type');
+  const validType = selectedType && ['request', 'send'].includes(selectedType);
+
+  const [step, setStep] = useState(validType ? ADDRESS_STEP : SELECT_TYPE_STEP);
+  const [transaction, setTransaction] = useState<Transaction>({
+    type: validType ? selectedType : undefined
+  } as Transaction);
   const { chain } = useNetwork();
 
   const onSelectType = (type: Transaction['type']) => {

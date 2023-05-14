@@ -21,3 +21,15 @@ export interface Transaction {
   amount: number;
   note: string | undefined;
 }
+
+export interface Request {
+  amount: bigint;
+  id: string;
+  note: string;
+  to: `0x${string}`;
+  token: `0x${string}`;
+}
+
+export interface Requests {
+  [key: number]: Request[];
+}

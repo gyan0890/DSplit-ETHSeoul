@@ -1,19 +1,20 @@
 import { zeroAddress } from 'viem';
-import { Chain, mainnet, optimism, polygon, polygonMumbai } from 'wagmi/chains';
+import { Chain, optimism, polygon, polygonMumbai } from 'wagmi/chains';
 
 import { Token } from './transaction';
 
 const production = process.env.NODE_ENV === 'production';
 
 export const enabledChains: Chain[] = production
-  ? [polygon, optimism, mainnet]
-  : [polygonMumbai, optimism, mainnet];
+  ? [polygon, optimism]
+  : [polygonMumbai, optimism];
 
 // uses coinmarketcap id
 export const chainIcons: { [key: number]: string } = {
   [polygonMumbai.id]: 'https://cryptologos.cc/logos/thumbs/polygon.png',
   [polygon.id]: 'https://cryptologos.cc/logos/thumbs/polygon.png',
-  [mainnet.id]: 'https://cryptologos.cc/logos/thumbs/ethereum.png',
+  // [scrollTestnet.id]:
+  //   'https://scroll.io/static/media/logo_with_text.7c6cafcac81093d6f83b.png',
   [optimism.id]: 'https://cryptologos.cc/logos/thumbs/optimism-ethereum.png'
 };
 
@@ -38,26 +39,26 @@ export const tokens: { [key: number]: Token[] } = {
       imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png'
     }
   ],
-  [mainnet.id]: [
-    {
-      symbol: 'USDC',
-      name: 'USDC',
-      address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-      decimals: 6,
-      chainId: mainnet.id,
-      coingeckoId: 'usd-coin',
-      imageUrl: 'https://cryptologos.cc/logos/thumbs/usd-coin.png'
-    },
-    {
-      symbol: 'USDT',
-      name: 'USDT',
-      address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-      decimals: 6,
-      chainId: mainnet.id,
-      coingeckoId: 'tether',
-      imageUrl: 'https://cryptologos.cc/logos/thumbs/tether.png'
-    }
-  ],
+  // [scrollTestnet.id]: [
+  //   {
+  //     symbol: 'USDC',
+  //     name: 'USDC',
+  //     address: '0xa0d71b9877f44c744546d649147e3f1e70a93760',
+  //     decimals: 18,
+  //     chainId: scrollTestnet.id,
+  //     coingeckoId: 'usd-coin',
+  //     imageUrl: 'https://cryptologos.cc/logos/thumbs/usd-coin.png'
+  //   },
+  //   {
+  //     symbol: scrollTestnet.nativeCurrency.symbol,
+  //     name: scrollTestnet.nativeCurrency.name,
+  //     address: zeroAddress,
+  //     decimals: scrollTestnet.nativeCurrency.decimals,
+  //     chainId: mainnet.id,
+  //     coingeckoId: 'ethereum',
+  //     imageUrl: 'https://cryptologos.cc/logos/thumbs/ethereum.png'
+  //   }
+  // ],
   [optimism.id]: [
     {
       symbol: 'USDC',
@@ -100,6 +101,8 @@ export const tokens: { [key: number]: Token[] } = {
   ]
 };
 
+export const requestEnabledChains = [polygonMumbai];
+
 export const requestContracts: { [key: number]: `0x${string}` } = {
-  [polygonMumbai.id]: '0x88E314a7696CB67f306b7814020F710Ba047027a'
+  [polygonMumbai.id]: '0x520D6ab8DFF9560F05d2E4E9e22aA98f9356883a'
 };

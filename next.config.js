@@ -19,6 +19,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'cryptologos.cc'
+      },
+      {
+        protocol: 'https',
+        hostname: 'scroll.io'
       }
     ]
   }

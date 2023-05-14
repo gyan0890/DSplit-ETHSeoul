@@ -20,7 +20,6 @@ const useRequestTransaction = ({
 }: UseRequestTransaction) => {
   const [id] = useState(new Date().getTime().toString());
   const requestId = encodeBytes32String(id);
-  console.log({ requestId });
   const { type, to, token, amount, note } = transaction;
 
   const { config, isError, error } = usePrepareContractWrite({

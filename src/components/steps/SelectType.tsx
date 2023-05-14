@@ -1,7 +1,6 @@
-import Link from 'next/link';
 import React from 'react';
 
-import { Button } from '@/components';
+import { Button, Requests } from '@/components';
 
 interface SelectTypeProps {
   onSend: () => void;
@@ -17,11 +16,7 @@ const SelectType = ({ onSend, onRequest }: SelectTypeProps) => {
       <div className="mt-4">
         <Button label="make a request" onClick={onRequest} />
       </div>
-      <div className="mt-32 hidden">
-        <Link href="/" className="text-base">
-          see requests
-        </Link>
-      </div>
+      <Requests />
     </>
   );
 };

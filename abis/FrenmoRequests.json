@@ -52,37 +52,79 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "myRequests",
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "data",
     "outputs": [
       {
-        "internalType": "bytes32[]",
-        "name": "",
-        "type": "bytes32[]"
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "note",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "requests",
+    "inputs": [],
+    "name": "myRequests",
     "outputs": [
       {
-        "internalType": "bytes32",
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "id",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "note",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct FrenmoRequests.Request[]",
         "name": "",
-        "type": "bytes32"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",

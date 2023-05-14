@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { BigNumber } from 'ethers';
 import { keccak256, solidityPack } from 'ethers/lib/utils';
 import { ethers } from 'hardhat';
 import { zeroAddress } from 'viem';
@@ -82,7 +83,9 @@ describe('FrenmoRequests', function () {
         });
 
         await contract.request(requestId, zeroAddress, zeroAddress, '1', '');
-        expect(await contract.myRequests()).to.be.eql([requestHash]);
+        expect(await contract.myRequests()).to.be.eql([
+          [requestHash, zeroAddress, zeroAddress, BigNumber.from('1'), '']
+        ]);
       });
     });
   });

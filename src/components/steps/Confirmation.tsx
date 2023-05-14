@@ -1,6 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import { zeroAddress } from 'viem';
+import { polygon } from 'viem/chains';
 import { useAccount, useNetwork, useSwitchNetwork, useWaitForTransaction } from 'wagmi';
 
 import { Button, TokenComponent, TransactionLink } from '@/components';
@@ -28,7 +29,7 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
   const request = type === 'request';
   const disconnected = !address || !chain;
 
-  const { config, error } = usePrepareTransferTransaction({
+  const { config, error: sendPrepareError } = usePrepareTransferTransaction({
     token,
     disconnected,
     amount,
@@ -37,8 +38,8 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
 
   const {
     data,
-    isError,
-    error: writeError,
+    isError: sendIsError,
+    error: sendError,
     transfer
   } = useTransferTransaction(config, token.address === zeroAddress);
 
@@ -55,19 +56,20 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
   } = useRequestTransaction({
     disconnected,
     transaction,
-    address: requestContracts[chain!.id]
+    address: requestContracts[chain?.id || polygon.id]
   });
 
   useTransactionFeedback({
     hash: (request ? requestData : data)?.hash,
     isSuccess: request ? requestIsSuccess : isSuccess,
-    isError: request ? requestIsError : isError,
-    error: request ? requestError : writeError,
+    isError: request ? requestIsError : sendIsError,
+    error: request ? requestError : sendError,
     Link: <TransactionLink hash={(request ? requestData : data)?.hash} />,
     onNotificationShow: onConfirm
   });
 
   const confirm = () => {
+    const error = request ? requestError : sendPrepareError;
     if (disconnected) {
       openConnectModal?.();
     } else if (needsToSwitchNetwork) {

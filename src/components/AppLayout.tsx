@@ -11,11 +11,7 @@ import { publicProvider } from 'wagmi/providers/public';
 
 import { Logo } from '@/components';
 import { enabledChains } from '@/models/chains';
-import {
-  ConnectButton,
-  getDefaultWallets,
-  RainbowKitProvider
-} from '@rainbow-me/rainbowkit';
+import { ConnectButton, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 
 const baskervville = Baskervville({ subsets: ['latin'], weight: ['400'] });
 
@@ -55,7 +51,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div className={`${baskervville.className} mt-16`}>{children}</div>
         </div>
         <ToastContainer />
-        <footer />
       </RainbowKitProvider>
     </WagmiConfig>
   );
