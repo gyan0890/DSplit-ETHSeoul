@@ -1,7 +1,7 @@
 'use client';
+import { formatUnits } from 'ethers/lib/utils';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { formatUnits } from 'viem';
 
 import { Button } from '@/components';
 import Confirmation from '@/components/steps/Confirmation';

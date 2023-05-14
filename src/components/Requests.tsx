@@ -14,7 +14,7 @@ const Requests = () => {
   const { address } = useAccount();
   const requested = Object.values(requests)
     .flat()
-    .filter((r: Request) => r.to !== address); // @TODO: change
+    .filter((r: Request) => r.to === address);
 
   if (!requested.length) {
     return <></>;

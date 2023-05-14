@@ -1,6 +1,6 @@
-import { encodeBytes32String } from 'ethers';
+import { utils } from 'ethers';
+import { parseUnits } from 'ethers/lib/utils';
 import { useState } from 'react';
-import { parseUnits } from 'viem';
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
 
 import { Transaction } from '@/models/transaction';
@@ -19,7 +19,7 @@ const useRequestTransaction = ({
   transaction
 }: UseRequestTransaction) => {
   const [id] = useState(new Date().getTime().toString());
-  const requestId = encodeBytes32String(id);
+  const requestId = utils.formatBytes32String(id);
   const { type, to, token, amount, note } = transaction;
 
   const { config, isError, error } = usePrepareContractWrite({

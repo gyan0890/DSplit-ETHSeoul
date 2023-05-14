@@ -1,4 +1,4 @@
-import { isAddress } from 'ethers';
+import { ethers } from 'ethers';
 import React, { useState } from 'react';
 
 import { Button } from '@/components';
@@ -16,7 +16,7 @@ const AddressStep = ({ onSetDestination, type }: AddressStepProps) => {
   const searchAddress = async () => {
     if (!search) return;
 
-    if (isAddress(search)) {
+    if (ethers.utils.isAddress(search)) {
       const user: User = { address: search as `0x${string}` };
       onSetDestination(user);
     } else {

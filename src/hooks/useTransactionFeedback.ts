@@ -1,5 +1,4 @@
 import { error } from 'console';
-import { isError } from 'ethers';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useNetwork } from 'wagmi';

@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { Baskervville } from 'next/font/google';
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
@@ -15,7 +15,7 @@ import { ConnectButton, getDefaultWallets, RainbowKitProvider } from '@rainbow-m
 
 const baskervville = Baskervville({ subsets: ['latin'], weight: ['400'] });
 
-const { chains, publicClient } = configureChains(enabledChains, [
+const { chains, provider } = configureChains(enabledChains, [
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_API_KEY! }),
   publicProvider()
 ]);
@@ -25,15 +25,15 @@ const { connectors } = getDefaultWallets({
   chains
 });
 
-const wagmiConfig = createConfig({
+const wagmiClient = createClient({
   autoConnect: true,
   connectors,
-  publicClient
+  provider
 });
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <WagmiConfig config={wagmiConfig}>
+    <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
         <div className="flex flex-col w-full justify-center items-center">
           <div className="mt-8">

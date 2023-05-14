@@ -1,8 +1,8 @@
+import { constants } from 'ethers';
 import React from 'react';
 import { toast } from 'react-toastify';
-import { zeroAddress } from 'viem';
-import { polygon } from 'viem/chains';
 import { useAccount, useNetwork, useSwitchNetwork, useWaitForTransaction } from 'wagmi';
+import { polygon } from 'wagmi/chains';
 
 import { Button, TokenComponent, TransactionLink } from '@/components';
 import {
@@ -41,7 +41,7 @@ const Confirmation = ({ transaction, onConfirm }: ConfirmationProps) => {
     isError: sendIsError,
     error: sendError,
     transfer
-  } = useTransferTransaction(config, token.address === zeroAddress);
+  } = useTransferTransaction(config, token.address === constants.AddressZero);
 
   const { isSuccess } = useWaitForTransaction({
     hash: data?.hash

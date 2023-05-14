@@ -1,4 +1,5 @@
-import { parseUnits, zeroAddress } from 'viem';
+import { constants } from 'ethers';
+import { parseUnits } from 'ethers/lib/utils';
 import { erc20ABI, usePrepareContractWrite, usePrepareSendTransaction } from 'wagmi';
 
 import { Token } from '@/models/transaction';
@@ -15,18 +16,20 @@ const usePrepareTransferTransaction = ({
   amount,
   disconnected
 }: UsePrepareTransferTransactionProps) => {
-  const nativeToken = token.address === zeroAddress;
+  const nativeToken = token.address === constants.AddressZero;
   const { config, error } = usePrepareContractWrite({
     address: token.address,
     abi: erc20ABI,
     functionName: 'transfer',
     enabled: !disconnected && !nativeToken,
-    args: [address, parseUnits(`${amount}`, token.decimals)]
+    args: [address, parseUnits(amount.toString(), token.decimals)]
   });
 
   const { config: nativeConfig, error: nativeError } = usePrepareSendTransaction({
-    to: address,
-    value: parseUnits(`${amount}`, token.decimals),
+    request: {
+      to: address,
+      value: parseUnits(amount.toString(), token.decimals)
+    },
     enabled: !disconnected && nativeToken
   });
 

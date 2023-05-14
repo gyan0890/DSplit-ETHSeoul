@@ -1,8 +1,7 @@
 import { expect } from 'chai';
-import { BigNumber } from 'ethers';
+import { BigNumber, constants } from 'ethers';
 import { keccak256, solidityPack } from 'ethers/lib/utils';
 import { ethers } from 'hardhat';
-import { zeroAddress } from 'viem';
 
 import { defaultAbiCoder } from '@ethersproject/abi';
 import { loadFixture } from '@nomicfoundation/hardhat-network-helpers';
@@ -38,7 +37,7 @@ describe('FrenmoRequests', function () {
   // and reset Hardhat Network to that snapshot in every test.
   async function deploy() {
     const FrenmoRequests = await ethers.getContractFactory('FrenmoRequests');
-    const contract = await FrenmoRequests.deploy(zeroAddress);
+    const contract = await FrenmoRequests.deploy(constants.AddressZero);
     const [user] = await ethers.getSigners();
 
     return { contract, user };
@@ -58,13 +57,15 @@ describe('FrenmoRequests', function () {
       const requestHash = generateRequestHash({
         requestId,
         fromAddress: user.address,
-        toAddress: zeroAddress,
+        toAddress: constants.AddressZero,
         amount: '1',
-        tokenAddress: zeroAddress,
+        tokenAddress: constants.AddressZero,
         notes: ''
       });
 
-      await expect(contract.request(requestId, zeroAddress, zeroAddress, '1', ''))
+      await expect(
+        contract.request(requestId, constants.AddressZero, constants.AddressZero, '1', '')
+      )
         .to.emit(contract, 'NewRequest')
         .withArgs(user.address, requestHash);
     });
@@ -76,15 +77,27 @@ describe('FrenmoRequests', function () {
         const requestHash = generateRequestHash({
           requestId,
           fromAddress: user.address,
-          toAddress: zeroAddress,
+          toAddress: constants.AddressZero,
           amount: '1',
-          tokenAddress: zeroAddress,
+          tokenAddress: constants.AddressZero,
           notes: ''
         });
 
-        await contract.request(requestId, zeroAddress, zeroAddress, '1', '');
+        await contract.request(
+          requestId,
+          constants.AddressZero,
+          constants.AddressZero,
+          '1',
+          ''
+        );
         expect(await contract.myRequests()).to.be.eql([
-          [requestHash, zeroAddress, zeroAddress, BigNumber.from('1'), '']
+          [
+            requestHash,
+            constants.AddressZero,
+            constants.AddressZero,
+            BigNumber.from('1'),
+            ''
+          ]
         ]);
       });
     });

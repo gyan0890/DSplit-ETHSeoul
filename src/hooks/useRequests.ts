@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { createPublicClient, http } from 'viem';
 import { useAccount } from 'wagmi';
+import { polygonMumbai } from 'wagmi/chains';
 
 import { requestContracts, requestEnabledChains } from '@/models/chains';
-import { Request, Requests } from '@/models/transaction';
+import { Requests } from '@/models/transaction';
+import { readContract } from '@wagmi/core';
 
 import abi from '../../abis/FrenmoRequests.json';
 
@@ -16,18 +17,16 @@ const useRequests = () => {
       if (!isConnected) return;
 
       requestEnabledChains.map(async (chain) => {
-        const publicClient = createPublicClient({
-          chain,
-          transport: http()
-        });
-        const data = await publicClient.readContract({
-          address: requestContracts[chain.id],
+        const data = await readContract({
+          address: requestContracts[polygonMumbai.id],
           abi,
           functionName: 'myRequests',
-          // @ts-expect-error
-          account: address!,
-          chainId: chain.id
+          chainId: polygonMumbai.id,
+          overrides: {
+            from: address
+          }
         });
+        // @ts-expect-error
         setRequests({ ...requests, ...{ [chain.id]: data as Request[] } });
       });
     };

@@ -1,4 +1,4 @@
-import { zeroAddress } from 'viem';
+import { constants } from 'ethers';
 import { Chain, optimism, polygon, polygonMumbai } from 'wagmi/chains';
 
 import { Token } from './transaction';
@@ -54,7 +54,7 @@ export const tokens: { [key: number]: Token[] } = {
   //   {
   //     symbol: scrollTestnet.nativeCurrency.symbol,
   //     name: scrollTestnet.nativeCurrency.name,
-  //     address: zeroAddress,
+  //     address: constants.AddressZero,
   //     decimals: scrollTestnet.nativeCurrency.decimals,
   //     chainId: mainnet.id,
   //     coingeckoId: 'ethereum',
@@ -97,7 +97,7 @@ export const tokens: { [key: number]: Token[] } = {
     {
       symbol: 'MATIC',
       name: 'MATIC',
-      address: zeroAddress,
+      address: constants.AddressZero,
       decimals: 18,
       chainId: polygonMumbai.id,
       coingeckoId: 'matic-network',
@@ -112,4 +112,8 @@ export const requestEnabledChains = production ? [polygon] : [polygonMumbai, pol
 export const requestContracts: { [key: number]: `0x${string}` } = {
   [polygonMumbai.id]: '0x14F2e404152668C9B4e7Bcf54a634030994EB425',
   [polygon.id]: '0x943920E1891Fcc6985EdF03bBdAb21b943768b82'
+};
+
+export const networkApiKeys: { [key: number]: string } = {
+  [polygon.id]: process.env.NEXT_PUBLIC_BICONOMY_MATIC_API_KEY!
 };
