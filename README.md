@@ -1,19 +1,15 @@
-## Frenmo
+## DSplit
+Want to split your travel expenses with colleagues/friends? Want to split your bounty winnings from a hackathon?
+Introducing DSplit! A one stop webapp(eventually mobile compatible) to split expenses in crypto.
 
-Hey ethglobal team, this is frenmo. A mobile app built on lens, polygon and optimism - where you can request your frens pay you for things with any stablecoin.
 
-[Demo](https://frenmo-ashy.vercel.app/)
+[Demo](TBD)
 
-## Polygon contracts
+## Contracts
 
-1. [Mumbai](https://mumbai.polygonscan.com/address/0x14f2e404152668c9b4e7bcf54a634030994eb425)
-2. [Polygon](https://polygonscan.com/address/0x943920e1891fcc6985edf03bbdab21b943768b82)
-3. [Polygon ZK EVM Testnet](https://testnet-zkevm.polygonscan.com/address/0x0aa10acf1964c71ec0c573c6af5ef44f2afb1633)
-4. [Polygon ZK EVM](https://zkevm.polygonscan.com/address/0x0aa10acf1964c71ec0c573c6af5ef44f2afb1633)
-
-## Optmism contract
-
-1. [Optmism](https://optimistic.etherscan.io/address/0x0aa10acf1964c71ec0c573c6af5ef44f2afb1633)
+1. [Gnosis Chain Testnet](TBD)
+2. [Aurora Testnet](TBD)
+3. [FVM Testnet](TBD)
 
 ## Getting Started
 
