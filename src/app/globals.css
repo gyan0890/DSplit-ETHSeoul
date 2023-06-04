@@ -4,9 +4,8 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  color: #000000;
+  background-image: url("bg.gif");
+  background-size: cover;
 }
 
 a {
@@ -26,30 +25,16 @@ a {
 
 html {
   background-size: cover;
-  height: 100%;
+  /* height: 100%; */
   /* Background image is centered vertically and horizontally at all times */
-  background-position: center center;
+  /* background-position: center center; */
 
   /* Background image doesn't tile */
   background-repeat: no-repeat;
-
+  background-image: url("bg.gif");
+  background-size: cover;
   /* Background image is fixed in the viewport so that it doesn't move when
 the content's height is greater than the image's height */
-  background-attachment: fixed;
-
-  background: conic-gradient(
-    from 61.76deg at 6.71% -16.99%,
-    #ffffff 0deg,
-    #ffffff 61.87deg,
-    #afecc7 196.88deg,
-    #25c264 211.84deg,
-    #dc9f9f 211.88deg,
-    #e5acac 219.38deg,
-    #ffd3d3 241.88deg,
-    #eabfda 273.75deg,
-    #7a50ff 348.75deg,
-    #ffffff 360deg
-  );
 }
 
 footer {

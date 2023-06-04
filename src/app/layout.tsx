@@ -12,9 +12,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <title>frenmo</title>
+        <title>DSplit</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta name="description" content="Send and request crypto from your frens" />
+        <meta name="description" content="Split expenses with your friends and colleagues" />
         <link rel="icon" href="/favicon.png?v=3" />
       </head>
       <body className={inter.className}>

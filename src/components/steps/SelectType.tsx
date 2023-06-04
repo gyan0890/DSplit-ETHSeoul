@@ -10,11 +10,17 @@ interface SelectTypeProps {
 const SelectType = ({ onSend, onRequest }: SelectTypeProps) => {
   return (
     <>
-      <div>
-        <Button label="send crypto" onClick={onSend} />
+      <div className="mt-4">
+        <Button label="Add Expense" onClick={onSend} />
       </div>
       <div className="mt-4">
-        <Button label="make a request" onClick={onRequest} />
+        <Button label="Add Group" onClick={onRequest} />
+      </div>
+      <div className="mt-4">
+        <Button label="View Expenses" onClick={onSend} />
+      </div>
+      <div className="mt-4">
+        <Button label="View Groups" onClick={onRequest} />
       </div>
       <Requests />
     </>
