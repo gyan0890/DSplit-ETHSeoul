@@ -9,7 +9,7 @@ Introducing DSplit! A one stop webapp(eventually mobile compatible) to split exp
 
 1. [Gnosis Chain Testnet](TBD)
 2. [Aurora Testnet](TBD)
-3. [FVM Testnet](TBD)
+3. [FVM Testnet](https://calibration.filfox.info/en/address/0x22D49c04622eCCA58389f2fF4B39451ec5137C91)
 
 ## Getting Started
 
