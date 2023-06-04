@@ -9,11 +9,6 @@ import { development, LensClient, production } from '@lens-protocol/client';
 const contractAddress = '0x22D49c04622eCCA58389f2fF4B39451ec5137C91';
 const contractABI = [
 	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -24,6 +19,11 @@ const contractABI = [
 				"internalType": "address[]",
 				"name": "_participants",
 				"type": "address[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "groupId",
+				"type": "uint256"
 			}
 		],
 		"name": "addExpense",
@@ -40,41 +40,24 @@ const contractABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "_gName",
+				"type": "string"
+			},
+			{
+				"internalType": "address[]",
+				"name": "_members",
+				"type": "address[]"
+			}
+		],
+		"name": "createGroup",
+		"outputs": [
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "bounties",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "bId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "receiver",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "totalAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "prizePerPerson",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "claimBounty",
-		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -82,19 +65,25 @@ const contractABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_totalBounty",
+				"name": "expenseId",
 				"type": "uint256"
-			},
-			{
-				"internalType": "address[]",
-				"name": "_hackers",
-				"type": "address[]"
 			}
 		],
-		"name": "createBounty",
-		"outputs": [],
+		"name": "settleUp",
+		"outputs": [
+			{
+				"internalType": "enum DSplit.ExpenseStatus",
+				"name": "status",
+				"type": "uint8"
+			}
+		],
 		"stateMutability": "payable",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"inputs": [
@@ -127,7 +116,7 @@ const contractABI = [
 				"type": "uint256"
 			},
 			{
-				"internalType": "enum Desplit.ExpenseStatus",
+				"internalType": "enum DSplit.ExpenseStatus",
 				"name": "status",
 				"type": "uint8"
 			}
@@ -170,6 +159,44 @@ const contractABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "groupId",
+				"type": "uint256"
+			}
+		],
+		"name": "getExpensesForGroup",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			}
+		],
+		"name": "getGroupsForUser",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "user",
 				"type": "address"
@@ -190,19 +217,24 @@ const contractABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "expenseId",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "settleUp",
+		"name": "groups",
 		"outputs": [
 			{
-				"internalType": "enum Desplit.ExpenseStatus",
-				"name": "status",
-				"type": "uint8"
+				"internalType": "uint256",
+				"name": "gId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "gName",
+				"type": "string"
 			}
 		],
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -219,6 +251,30 @@ const contractABI = [
 			}
 		],
 		"name": "userExpenses",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "userGroups",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -256,7 +312,7 @@ const AddressStep = ({ onSetDestination, type }: AddressStepProps) => {
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
     // Call the function on the smart contract
-    const response = await contract.addExpense(search, address_array);
+    const response = await contract.addExpense(search, address_array, 1);
     setResult(response.data);
     console.log(response.data);
     //Logic to send the list of members and the expenditure to the contract
@@ -288,15 +344,17 @@ const AddressStep = ({ onSetDestination, type }: AddressStepProps) => {
   
 
     const provider = new ethers.providers.Web3Provider(window.ethereum as any);
-    await provider.send("eth_requestAccounts", []);
+    let accounts = await provider.send("eth_requestAccounts", []);
+    let account = accounts[0];
     const signer = provider.getSigner();
 
+   
     // Create a contract instance
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
     // Call the function on the smart contract
-    const response = await contract.getActiveExpensesPerUser(search, signer._address);
-    console.log(response.data);
+    const response = await contract.getActiveExpensesPerUser(account);
+    console.log(parseInt(response[0]._hex));
 
     //Logic to send the list of members and the expenditure to the contract
 
