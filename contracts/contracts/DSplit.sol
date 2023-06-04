@@ -171,6 +171,10 @@ contract DSplit {
         return groupExpenses[groupId];
     }
 
+    function getExpense(uint expId) public view returns(address, uint, uint) {
+        return (expenses[expId].payer, expenses[expId].totalExpense, expenses[expId].expensePerPerson);
+    }
+    
     //Returns all the expenses of a particular user
     /*
     function getActiveExpensesPerUser(address user) public view returns(uint[] memory, uint[] memory) {
@@ -203,4 +207,4 @@ contract DSplit {
        return address(this).balance;
    }
     
-} 
+}     
