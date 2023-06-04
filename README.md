@@ -7,9 +7,9 @@ Introducing DSplit! A one stop webapp(eventually mobile compatible) to split exp
 
 ## Contracts
 
-1. [Gnosis Chain Chiado](https://blockscout.com/gnosis/chiado/address/0x22D49c04622eCCA58389f2fF4B39451ec5137C91)
-2. [Aurora Testnet](https://explorer.testnet.aurora.dev/tx/0xd6204be91e159316730d65957e4b6d20b30ff713b98c7e5fb95725b3f6aa80ff)
-3. [FVM Testnet](https://calibration.filfox.info/en/address/0x22D49c04622eCCA58389f2fF4B39451ec5137C91)
+1. [Gnosis Chain Chiado](https://blockscout.chiadochain.net/tx/0x8a82398ef30d794cfb3bfa5a263fc0d51be12ab5de32a60113e376911998be3f)
+2. [Aurora Testnet](https://explorer.testnet.aurora.dev/tx/0x9776c4bfb8eb33db2ef60bbbc853d3cea9d92126bb4938064163a940643f8913)
+3. [FVM Testnet](https://calibration.filscan.io/tx/0xdb3557fe58d3965bbc78fef2a1370ab87f9712fdb364a775537e63d368bcd9d7)
 
 ## Getting Started
 
